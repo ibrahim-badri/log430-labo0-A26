@@ -7,6 +7,7 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+
     permissions:
       contents: read
       packages: write
@@ -14,6 +15,9 @@ jobs:
     steps:
       - name: Checkout dépôt
         uses: actions/checkout@v4
+
+      - name: Définir le nom de l'image
+        run: echo "IMAGE_NAME=ghcr.io/${GITHUB_REPOSITORY,,}" >> "$GITHUB_ENV"
 
       - name: Authentification à GHCR
         uses: docker/login-action@v3
@@ -27,4 +31,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository }}:latest
+          tags: ${{ env.IMAGE_NAME }}:latest
