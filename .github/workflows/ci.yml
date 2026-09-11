@@ -1,4 +1,4 @@
-name: example_CI
+name: CI Pipeline
 
 on: [push, pull_request]
 
