@@ -1,1 +1,18 @@
-TODO
+# Define the application services
+services:
+
+  # Calculator application service
+  calculator:
+
+    # Build the Docker image using the Dockerfile in the current directory
+    build: .
+
+    # Mount the current project directory to /app inside the container
+    volumes:
+      - .:/app
+
+    # Keep standard input open for interactive commands
+    stdin_open: true
+
+    # Allocate a terminal for interactive use
+    tty: true
