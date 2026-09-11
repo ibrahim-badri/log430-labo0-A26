@@ -13,5 +13,10 @@ COPY requirements.txt ./
 # Add the source directory to Python's module search path
 ENV PYTHONPATH=/app/src
 
+# Install Linux process monitoring utilities such as top and ps
+RUN apt-get update \
+    && apt-get install -y procps \
+    && rm -rf /var/lib/apt/lists/*
+
 # Install the required Python dependencies without caching package files
 RUN pip install --no-cache-dir -r requirements.txt
