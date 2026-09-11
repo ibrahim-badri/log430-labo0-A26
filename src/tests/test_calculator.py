@@ -27,8 +27,16 @@ Verify that get_hello_message returns 'Calculatrice'.
 Args:
     calculator (Calculator): Fixture providing a Calculator instance.
 """
-def test_app(calculator):
-    assert calculator.get_hello_message() == "== Calculatrice v1.0 ==\n"
+def test_app(calculator, tmp_path, monkeypatch):
+
+    env_file = tmp_path / ".env"
+    env_file.write_text("CALCULATOR_USERNAME=YourName")
+
+    monkeypatch.chdir(tmp_path)
+    assert calculator.get_hello_message() == (
+        "== Calculatrice v1.0 ==\n"
+        "Bienvenu(e) YourName\n"
+    )
 
 """
 Test addition with two values using parametrize.
